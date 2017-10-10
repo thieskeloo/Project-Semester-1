@@ -14,6 +14,7 @@ public class Project1{
 		Char[][] pentU = {{u,0,u},{u,u,u}};
 		Char[][] pentN = {{n,n,0,0},{0,n,n,n}};
 		Char[][] pentL = {{0,0,0,l},{l,l,l,l}};
+		Char[] pentArray ={pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
 		
 		Scanner input = new Scanner(System.in);
 		System.out.println("Type the length of the grid.");
@@ -37,13 +38,16 @@ public class Project1{
 		
 		for(int i=0; i<lengthGrid; i++){
 			for(int j =0; j<widthGrid; j++){
-				rotateMatrix(pent, , );
+				rotateMatrix(pentArray);
+				flipMatrix(pentArray);
 			}
 		}
 		
 		
 		//rotating
-		public static Char[][] rotateMatrix(Char[][] a, int n, int m){
+		public static Char[][] rotateMatrix(Char[][] a){
+			int n = a.length;
+			int m = a[0].length;
 			Char[][] tempMatrix = a[m][n];
 			for(int i=0; i<m; i++){
 				for(int j=0; j<n; j++){
@@ -55,7 +59,9 @@ public class Project1{
 		}
 		
 		//flipping
-		public static Char[][] flipMatrix(Char[][] a, int n, int m){
+		public static Char[][] flipMatrix(Char[][] a){
+			int n = a.length;
+			int m = a[0].length;
 			Char[][] flipMatrix = a[m][n]; //do we need a temp matrix/value??
 			for(int i=0; i<m; i++){
 				for(int j=0; j<n; j++){
