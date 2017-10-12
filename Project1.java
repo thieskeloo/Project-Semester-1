@@ -1,5 +1,4 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.Scanner;	
 import java.util.HashMap;
 
 public class Project1{
@@ -31,7 +30,6 @@ public class Project1{
 		char[][][][] pentSet = {pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
 		
 		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
-		System.out.println("Type the name of the pentominoes you want to use."); //ordered in this way
 		hmap.put('p', 0);
 		hmap.put('x', 1);
 		hmap.put('f', 2);
@@ -53,30 +51,32 @@ public class Project1{
 
 		int area = lengthGrid * widthGrid;
 		char[][] grid = new char[lengthGrid][widthGrid];
+		for (int i = 0; i < grid.length; i++){
+			for (int j = 0; j < grid[0].length; j++){
+				grid[i][j] = '0';
+			}
+		}
 		
 		if(area%5 != 0){
-			System.out.println("Not possible.");
+			throw new IllegalArgumentException("Not possible.");
 		}
 		else if(area > 60){
-			System.out.println("Definetely not possible!");
-		}
-		else if(area==5){ 
-			System.out.println("True."); //show??
+			throw new IllegalArgumentException("YOU STUPID IDIOT!");
 		}
 		
 		System.out.println("Which pentatoniminos should be used?");
 		int numberOfPents = area / 5;
-		int[] pentsUsed = new int[numberOfPents];
+		char[] pentsUsed = new char[numberOfPents];
 		for (int i = 0; i < numberOfPents; i++){
 			char tmpChar = input.next().charAt(0);
-			pentsUsed[i] = hmap.get(tmpChar);
+			pentsUsed[i] = tmpChar;
 		}
 		
-		
+		placePentomino(grid, pentSet, pentsUsed, 0);
 
 	}
 	
-	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed, int progress, int x, int y){
+	public static void placePentomino(char[][] grid, char[][][][] pentSet, char[] pentsUsed, int progress){
 		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
 		hmap.put('p', 0);
 		hmap.put('x', 1);
@@ -91,15 +91,38 @@ public class Project1{
 		hmap.put('n', 10);
 		hmap.put('l', 11);
 		int pentIndex = hmap.get(pentsUsed[progress]);
+		char pent = pentsUsed[progress];
 		
-		for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
-			if (checkOutOfBounds(grid, pentsUsed[progress], variant, x, y) || checkOverlap(grid, pent, variant, x, y)){
-				for (int i = 0; i < pentSet[pentIndex][variant].length; j++){
-					for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
-						if (pentSet[pentIndex][variant][i][j] != 0){
-							grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
-							placePentomino(grid, pentSet, pentsUsed, progress+1, x, y);
-							removePentomino(grid, pent);
+		System.out.println(grid.length + " " + grid[0].length);
+		
+		for (int x = 0; x < grid.length; x++){
+			for (int y = 0; y < grid[0].length; y++){
+				for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
+					System.out.println("oub is " + checkOutOfBounds(grid, pent, pentSet, variant, x, y ) + " for x y " + x + " " + y + " for pent " + pent + "" + variant);
+					if (checkOutOfBounds(grid, pent, pentSet, variant, x, y) == true){
+						System.out.println("overlap is" + checkOverlap(grid, pent, pentSet, variant, x, y ));
+						if(checkOverlap(grid, pent, pentSet, variant, x, y ) == true){
+							for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
+								for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
+									if (pentSet[pentIndex][variant][i][j] != 0){
+										grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
+									}
+								}
+							}
+							System.out.println("variant and number of variables" + variant + " " + pentSet[pentIndex].length);
+							if (variant < pentSet[pentIndex].length - 1){
+								System.out.println("progress and  number of pents used " + progress + " " + pentsUsed.length);
+								if (progress < pentsUsed.length - 1) {
+									placePentomino(grid, pentSet, pentsUsed, progress+1);
+									removePentomino(grid, pent);
+								} 
+								for (int k = 0; k < grid.length; k++){
+									for (int l = 0; k < grid[0].length; k++){
+										System.out.print(grid[k][l]);
+									}
+									System.out.println("");
+								}
+							}
 						}
 					}
 				}
@@ -107,7 +130,7 @@ public class Project1{
 		}
 	}
 	
-	public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
+	/*public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
 		int height = grid.length;
 		int width = grid[0].length;
 		
@@ -132,7 +155,7 @@ public class Project1{
 			}
 		}
 		return emptyBoxes;
-	}
+	}*/
 	
 	public static void removePentomino(char[][] grid, char pent) {
 		for (int i=0; i<grid.length; i++) {
@@ -144,38 +167,62 @@ public class Project1{
 		}
 	}
 	
-	public static boolean outOfBound(char[][] grid, char pent, int x, int y) {
+	public static boolean checkOutOfBounds(char[][] grid, char pent, char[][][][] pentSet, int variant, int x, int y) {
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		
 		int heightGrid = grid.length;
 		int widthGrid = grid[0].length;
-		int heigthPent = hmap.get(pent).length;
-		int widthPent = hmap.get(pent)[0].length;
+		int heightPent = pentSet[hmap.get(pent)][variant].length;
+		int widthPent = pentSet[hmap.get(pent)][variant][0].length;
 		
-		for(int i=0; i<heightGrid; i++){
-			for(int j=0; j<widthGrid; j++){
-				if(heigthGrid-i < heigthPent){
-					return false;
-				}
-				if(widthGrid-j < widthPent){
-					return false;
-				}	
-			}
+		
+		/*System.out.println("the pent is " + pent + "" + variant + " pentheight is " + heightPent + " pentwidth is " + widthPent);
+		System.out.println("x is " + x + " gridheight is " + heightGrid + " y is " + y + " gridwidth is " + widthGrid);*/
+		
+		
+		if ((x + heightPent > heightGrid) || (y + widthPent > widthGrid)){
+			return false;
 		}
 		
+		return true;
 	}
 	
-	public static boolean checkOverlap(char[][] grid, char pent, int variant, int x, int y) {
-		int p = hmap.get(pent); //this is the pentomino used
-		if(grid[x][y]=='0') {
-			for (int i=0; i<pentSet[p][variant].length; i++) {
-				for(int j=0; j<pentSet[p][variant][i].length; j++) {
-					if(pentSet[p][variant][i][j]=pent && grid[x+i][y+j]!='0') {
-						return false;
-						}
-					}
-				}
-			} 
-		else {
-			return false;
+	public static boolean checkOverlap(char[][] grid, char pent, char[][][][] pentSet, int variant, int x, int y) {
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		
+		int pentIndex = hmap.get(pent); //this is the pentomino used
+		
+		for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
+			for(int j = 0; j < pentSet[pentIndex][variant][0].length; j++){
+				System.out.println(grid[x+i][y+j] + " " + pentSet[pentIndex][variant][i][j]);
+				if ((grid[x+i][y+j] != '0') && (pentSet[pentIndex][variant][i][j] != '0')){
+					return false;
+				}					
+			}
 		}
 		return true;
 	}
