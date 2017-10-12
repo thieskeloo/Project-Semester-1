@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class project1{
 	public static void main(String[] args){
 		char[][][] pentP = {{{'p','p'},{'p','p'},{'p','0'}},{{'p','p'},{'p','p'},{'p','0'}},{{'p','0'},{'p','p'},{'p','p'}},{{'0','p'},{'p','p'},{'p','p'}},{{'p','p','p'},{'p','p','0'}},{{'p','p','p'},{'0','p','p'}},{{'p','p','0'},{'p','p','p'}},{{'0','p','p'},{'p','p','p'}}};
-		
+
 		char[][][] pentX = {{{'0','x','0'},{'x','x','x'},{'0','x','0'}}};
 
 		char[][][] pentF = {{{'0','f','0'},{'f','f','f'},{'0','0','f'}},{{'0','f','f'},{'f','f','0'},{'0','f','0'}},{{'f','0','0'},{'f','f','f'},{'0','f','0'}},{{'0','f','0'},{'0','f','f'},{'f','f','0'}},{{'0','0','f'},{'f','f','f'},{'0','f','0'}},{{'f','f','0'},{'0','f','f'},{'0','f','0'}},{{'0','f','0'},{'f','f','f'},{'f','0','0'}},{{'0','f','0'},{'f','f','0'},{'0','f','f'}}};
@@ -29,7 +29,7 @@ public class project1{
 		char[][][] pentL = {{{'l','0','0','0',},{'l','l','l','l'}},{{'0','l'},{'0','l'},{'0','l'},{'l','l'}},{{'l','l','l','l'},{'0','0','0','l'}},{{'l','l'},{'l','0'},{'l','0'},{'l','0'}},{{'l','l'},{'0','l'},{'0','l'},{'0','l'}},{{'l','l','l','l'},{'l','0','0','0'}},{{'l','0'},{'l','0'},{'l','0'},{'l','l'}},{{'0','0','0','l'},{'l','l','l','l'}}};
 
 		char[][][][] pentSet = {pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
-		
+
 		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
 		hmap.put('p', 0);
 		hmap.put('x', 1);
@@ -43,7 +43,7 @@ public class project1{
 		hmap.put('u', 9);
 		hmap.put('n', 10);
 		hmap.put('l', 11);
-		
+
 		Scanner input = new Scanner(System.in);
 		System.out.println("Type the length of the grid.");
 		int lengthGrid = input.nextInt();
@@ -52,7 +52,7 @@ public class project1{
 
 		int area = lengthGrid * widthGrid;
 		char[][] grid = new char[lengthGrid][widthGrid];
-		
+
 		System.out.println("Which pentatoniminos should be used?");
 		int numberOfPents = area / 5;
 		int[] pentsUsed = new int[numberOfPents];
@@ -60,21 +60,31 @@ public class project1{
 			char tmpChar = input.next().charAt(0);
 			pentsUsed[i] = hmap.get(tmpChar);
 		}
-		
-		/*
+
+
 		if(area%5 != 0){
 			System.out.println("Not possible.");
 		}
 		else if(area > 60){
 			System.out.println("Definetely not possible!");
 		}
-		else if(grid[1][5] || grid[5][1]){ //????? or grid.length == 5 && grid[0].length == 1
-			System.out.println("True."); //show??
+		else if(area==5){
+			System.out.println("True.");
 		}
-		*/
+
 	}
-	
+
 	/*public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
-		
+
 	}*/
+
+	public static void removePentomino(char[][] grid, char pent) {
+		for (int i=0; i<grid.length; i++) {
+			for (int j=0; j<grid[0].length; j++) {
+				if (grid[i][j]==pent) {
+					grid[i][j]='0';
+				}
+			}
+		}
+	}
 }
