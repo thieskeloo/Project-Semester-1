@@ -1,87 +1,48 @@
-import java.util.Scanner;
+import java.util.Scanner;	
+import java.util.HashMap;
 
 public class Project1{
 	public static void main(String[] args){
-    char[][] pentP = {{'p','p'},{'p','p'},{'p',null}}; //3x3 nxm
-		char[][] pentX = {{null,'x',0},{'x','x','x'},{0,'x',0}}; //3x3 mxm
+		char[][][] pentP = {{{'p','p'},{'p','p'},{'p','0'}},{{'p','p'},{'p','p'},{'p','0'}},{{'p','0'},{'p','p'},{'p','p'}},{{'0','p'},{'p','p'},{'p','p'}},{{'p','p','p'},{'p','p','0'}},{{'p','p','p'},{'0','p','p'}},{{'p','p','0'},{'p','p','p'}},{{'0','p','p'},{'p','p','p'}}};
 		
-		char[][] pentF1 = {{null,'f',null},{'f','f','f'},{0,0,'f'}};
-		char[][] pentF2 = {{0,'f','f'},{'f','f',0},{0,'f',0}};
-		char[][] pentF3 = {{'f',0,0},{'f','f','f'},{0,'f',0}};
-		char[][] pentF4 = {{0,'f',0},{0,'f','f'},{'f','f',0}};
-		char[][] pentF5 = {{0,0,'f'},{'f','f','f'},{0,'f',0}};
-		char[][] pentF6 = {{'f','f',0},{0,'f','f'},{0,'f',0}};
-		char[][] pentF7 = {{0,'f',0},{'f','f','f'},{'f',0,0}};
-		char[][] pentF8 = {{0,'f',0},{'f','f',0},{0,'f','f'}};
-		char[] pentF = {pentF1,pentF2,pentF3,pentF4,pentF5,pentF6,pentF7,pentF8};
-		
-		char[][] pentV1 = {{'v',0,0},{'v',0,0},{'v','v','v'}};
-		char[][] pentV2 = {{'v','v','v'},{'v',0,0},{'v',0,0}};
-		char[][] pentV3 = {{0,0,'v'},{0,0,'v'},{'v','v','v'}};
-		char[][] pentV4 = {{'v','v','v'},{0,0,'v'},{0,0,'v'}};
-		char[] pentV = {pentV1,pentV2,pentV3,pentV4};
-		
-		char[][] pentW1 = {{'w',0,0},{'w','w',0},{0,'w','w'}};
-		char[][] pentW2 = {{0,0,'w'},{0,'w','w'},{'w','w',0}};
-		char[][] pentW3 = {{'w','w',0},{0,'w','w'},{0,0,'w'}};
-		char[][] pentW4 = {{0,'w','w'},{'w','w',0},{'w',0,0}};
-		char[] pentW = {pentW1,pentW2,pentW3,pentW4};
-		
-		char[][] pentY1 = {{0,0,'y',0},{'y','y','y','y'}};
-		char[][] pentY2 = {{0,'y'},{'y','y'},{0,'y'},{0,'y'}};
-		char[][] pentY3 = {{'y','y','y','y'},{0,'y',0,0}};
-		char[][] pentY4 = {{'y',0},{'y',0},{'y','y'},{'y',0}};
-		char[][] pentY5 = {{'y','y','y','y'},{0,0,'y',0}};
-		char[][] pentY6 = {{'y',0},{'y','y'},{'y',0},{'y',0}};
-		char[][] pentY7 = {{0,'y',0,0},{'y','y','y','y'}};
-		char[][] pentY8 = {{0,'y'},{0,'y'},{'y','y'},{0,'y'}};
-		char[] pentY = {pentY1,pentY2,pentY3,pentY4,pentY5,pentY6,pentY7,pentY8};
-		
-		char[][] pentI1 = {{'i','i','i','i','i'}};
-		char[][] pentI2 = {{'i'},{'i'},{'i'},{'i'},{'i'}};
-		char[][][] pentI ={pentI1,pentI2};
-		
-		char[][] pentT1 = {{'t','t','t'},{0,'t',0},{0,'t',0}};
-		char[][] pentT2 = {{0,0,'t'},{'t','t','t'},{0,0,'t'}};
-		char[][] pentT3 = {{'t',0,0},{'t','t','t'},{'t',0,0}};
-		char[][] pentT4 = {{0,'t',0},{0,'t',0},{'t','t','t'}};
-		char[][][] pentT = {pentT1,pentT2,pentT3,pentT4};
-		
-		char[][] pentZ1 = {{0,'z','z'},{0,'z',0},{'z','z',0}};
-		char[][] pentZ2 = {{'z',0,0},{'z','z','z'},{0,0,'z'}};
-		char[][] pentZ3 = {{'z','z',0},{0,'z',0},{0,'z','z'}};
-		char[][] pentZ4 = {{0,0,'z'},{'z','z','z'},{'z',0,0}};
-		char[] pentZ = {pentZ1,pentZ2,pentZ3,pentZ4};
-		
-		char[][] pentU1 = {{'u','u','u'},{'u',0,'u'}};
-		char[][] pentU2 = {{'u','u'},{0,'u'},{'u','u'}};
-		char[][] pentU3 = {{'u',0,'u'},{'u','u','u'}};
-		char[][] pentU4 = {{'u','u'},{'u',0},{'u','u'}};
-		char[] pentU = {pentU1,pentU2,pentU3,pentU4};
-		
-		char[][] pentN1 = {{'n','n','n',0},{0,0,'n','n'}};
-		char[][] pentN2 = {{'n',0},{'n','n'},{0,'n'},{0,'n'}};
-		char[][] pentN3 = {{0,'n','n','n'},{'n','n',0,0}};
-		char[][] pentN4 = {{'n',0},{'n',0},{'n','n'},{0,'n'}};
-		char[][] pentN5 = {{'n','n',0,0},{0,'n','n','n'}};
-		char[][] pentN6 = {{0,'n'},{0,'n'},{'n','n'},{'n',0}};
-		char[][] pentN7 = {{'n','n','n',0},{0,0,'n','n'}};
-		char[][] pentN8 = {{0,'n'},{'n','n'},{'n',0},{'n',0}};
-		char[] pentN = {pentN1,pentN2,pentN3,pentN4,pentN5,pentN6,pentN7,pentN8};
-		
-		char[][] pentL1 = {{'l',0,0,0,},{'l','l','l','l'}};
-		char[][] pentL2 = {{0,'l'},{0,'l'},{0,'l'}{'l','l'}};
-		char[][] pentL3 = {{'l','l','l','l'},{0,0,0,'l'}};
-		char[][] pentL4 = {{'l','l'},{'l',0},{'l',0},{'l',0}};
-		char[][] pentL5 = {{'l','l'},{0,'l'},{0,'l'},{0,'l'}};
-		char[][] pentL6 = {{'l','l','l','l'},{'l',0,0,0}};
-		char[][] pentL7 = {{'l',0},{'l',0},{'l',0},{'l','l'}};
-		char[][] pentL8 = {{0,0,0,'l'},{'l','l','l','l'}};
-		char[] pentL = {pentL1,pentL2,pentL3,pentL4,pentL5,pentL6,pentL7,pentL8};
-		
-		
-		char[] pentArray ={pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
+		char[][][] pentX = {{{'0','x','0'},{'x','x','x'},{'0','x','0'}}};
 
+		char[][][] pentF = {{{'0','f','0'},{'f','f','f'},{'0','0','f'}},{{'0','f','f'},{'f','f','0'},{'0','f','0'}},{{'f','0','0'},{'f','f','f'},{'0','f','0'}},{{'0','f','0'},{'0','f','f'},{'f','f','0'}},{{'0','0','f'},{'f','f','f'},{'0','f','0'}},{{'f','f','0'},{'0','f','f'},{'0','f','0'}},{{'0','f','0'},{'f','f','f'},{'f','0','0'}},{{'0','f','0'},{'f','f','0'},{'0','f','f'}}};
+
+		char[][][] pentV = {{{'v','0','0'},{'v','0','0'},{'v','v','v'}},{{'v','v','v'},{'v','0','0'},{'v','0','0'}},{{'0','0','v'},{'0','0','v'},{'v','v','v'}},{{'v','v','v'},{'0','0','v'},{'0','0','v'}}};
+
+		char[][][] pentW = {{{'w','0','0'},{'w','w','0'},{'0','w','w'}},{{'0','0','w'},{'0','w','w'},{'w','w','0'}},{{'w','w','0'},{'0','w','w'},{'0','0','w'}},{{'0','w','w'},{'w','w','0'},{'w','0','0'}}};
+
+		char[][][] pentY = {{{'0','0','y','0'},{'y','y','y','y'}},{{'0','y'},{'y','y'},{'0','y'},{'0','y'}},{{'y','y','y','y'},{'0','y','0','0'}},{{'y','0'},{'y','0'},{'y','y'},{'y','0'}},{{'y','y','y','y'},{'0','0','y','0'}},{{'y','0'},{'y','y'},{'y','0'},{'y','0'}},{{'0','y','0','0'},{'y','y','y','y'}},{{'0','y'},{'0','y'},{'y','y'},{'0','y'}}};
+
+		char[][][] pentI = {{{'i','i','i','i','i'}},{{'i'},{'i'},{'i'},{'i'},{'i'}}};
+
+		char[][][] pentT = {{{'t','t','t'},{'0','t','0'},{'0','t','0'}},{{'0','0','t'},{'t','t','t'},{'0','0','t'}},{{'t','0','0'},{'t','t','t'},{'t','0','0'}},{{'0','t','0'},{'0','t','0'},{'t','t','t'}}};
+
+		char[][][] pentZ = {{{'0','z','z'},{'0','z','0'},{'z','z','0'}},{{'z','0','0'},{'z','z','z'},{'0','0','z'}},{{'z','z','0'},{'0','z','0'},{'0','z','z'}},{{'0','0','z'},{'z','z','z'},{'z','0','0'}}};
+
+		char[][][] pentU = {{{'u','u','u'},{'u','0','u'}},{{'u','u'},{'0','u'},{'u','u'}},{{'u','0','u'},{'u','u','u'}},{{'u','u'},{'u','0'},{'u','u'}}};
+
+		char[][][] pentN = {{{'n','n','n','0'},{'0','0','n','n'}},{{'n','0'},{'n','n'},{'0','n'},{'0','n'}},{{'0','n','n','n'},{'n','n','0','0'}},{{'n','0'},{'n','0'},{'n','n'},{'0','n'}},{{'n','n','0','0'},{'0','n','n','n'}},{{'0','n'},{'0','n'},{'n','n'},{'n','0'}},{{'n','n','n','0'},{'0','0','n','n'}},{{'0','n'},{'n','n'},{'n','0'},{'n','0'}}};
+
+		char[][][] pentL = {{{'l','0','0','0',},{'l','l','l','l'}},{{'0','l'},{'0','l'},{'0','l'},{'l','l'}},{{'l','l','l','l'},{'0','0','0','l'}},{{'l','l'},{'l','0'},{'l','0'},{'l','0'}},{{'l','l'},{'0','l'},{'0','l'},{'0','l'}},{{'l','l','l','l'},{'l','0','0','0'}},{{'l','0'},{'l','0'},{'l','0'},{'l','l'}},{{'0','0','0','l'},{'l','l','l','l'}}};
+
+		char[][][][] pentSet = {pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
+		
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		
 		Scanner input = new Scanner(System.in);
 		System.out.println("Type the length of the grid.");
 		int lengthGrid = input.nextInt();
@@ -90,79 +51,179 @@ public class Project1{
 
 		int area = lengthGrid * widthGrid;
 		char[][] grid = new char[lengthGrid][widthGrid];
-
-
+		
 		if(area%5 != 0){
-			System.out.println("Not possible.");
+			throw new IllegalArgumentException("Not possible.");
 		}
-		if else(area > 60){
-			System.out.println("Definetely not possible!");
+		else if(area > 60){
+			throw new IllegalArgumentException("YOU STUPID IDIOT!");
 		}
-		if else(grid[1][5] || grid[5][1]){ //????? or grid.length == 5 && grid[0].length == 1
-			System.out.println("True."); //show??
+		
+		System.out.println("Which pentatoniminos should be used?");
+		int numberOfPents = area / 5;
+		char[] pentsUsed = new char[numberOfPents];
+		for (int i = 0; i < numberOfPents; i++){
+			char tmpChar = input.next().charAt(0);
+			pentsUsed[i] = tmpChar;
 		}
+		
+		placePentomino(grid, pentSet, pentsUsed, 0);
 
+	}
+	
+	public static void placePentomino(char[][] grid, char[][][][] pentSet, char[] pentsUsed, int progress){
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		int pentIndex = hmap.get(pentsUsed[progress]);
+		char pent = pentsUsed[progress];
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-/*		
-		for(int i=0; i<lengthGrid; i++){
-			for(int j =0; j<widthGrid; j++){
-				rotateMatrix(pentArray);
-				flipMatrix(pentArray);
+		for (int x = 0; x < grid.length; x++){
+			for (int y = 0; y < grid[0].length; y++){
+				for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
+					if (checkOutOfBounds(grid, pent, pentSet, variant, x, y)){
+						if(checkOverlap(grid, pent, pentSet, variant, x, y)){
+							for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
+								for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
+									if (pentSet[pentIndex][variant][i][j] != 0){
+										grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
+										if (variant < pentSet[pentIndex][variant].length){
+											if (progress<pentsUsed.length) {
+												placePentomino(grid, pentSet, pentsUsed, progress+1);
+											} else{
+												for (int k = 0; k < grid.length; k++){
+													for (int l = 0; k < grid[0].length; k++){
+														System.out.print(grid[i][j]);
+													}
+													System.out.println("");
+												}
+											}
+										}
+										removePentomino(grid, pent);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
-
-  public static char[][] rotateMatrix(char[][] a){
-    int n = a.length;
-    int m = a[0].length;
-    char[][] tempMatrix = a[m][n];
-    for(int i=0; i<m; i++){
-      for(int j=0; j<n; j++){
-        tempMatrix[i][j] = a[j][i];
-      }
-    }
-    rotatedMatrix[][]=flipMatrix(tempMatrix);
-    return rotatedMatrix;
-  }
-
-  //flipping
-  public static char[][] flipMatrix(char[][] a){
-    int n = a.length;
-    int m = a[0].length;
-    char[][] flipMatrix = a[m][n]; //do we need a temp matrix/value??
-    for(int i=0; i<m; i++){
-      for(int j=0; j<n; j++){
-        flipMatrix[i][j] = a[i][a[0].length-1-j];
-      }
-    }
-    return flipMatrix;
-  }*/
+	
+	/*public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
+		int height = grid.length;
+		int width = grid[0].length;
+		
+		int emptyBoxes=0;
+		for(int i=0; i<height; i++){
+			for(int j=0; j<width; j++){
+				if(grid[i][j]=='0'){
+					grid[i][j]='1';
+					emptyBoxes++;
+					if(i != 0){
+						emptyBlocks(grid[i-1][j], pentSet, pentsUsed);
+					}
+					if(i != height)
+					emptyBlocks(grid[i+1][j], pentSet, pentsUsed);
+					if(j != 0){
+						emptyBlocks(grid[i][j-1], pentSet, pentsUsed);
+					}
+					if(j != width){
+						emptyBlocks(grid[i][j+1], pentSet, pentsUsed);
+					}
+				}
+			}
+		}
+		return emptyBoxes;
+	}*/
+	
+	public static void removePentomino(char[][] grid, char pent) {
+		for (int i=0; i<grid.length; i++) {
+			for (int j=0; j<grid[0].length; j++) {
+				if (grid[i][j]==pent) {
+					grid[i][j]='0';
+				}
+			}
+		}
+	}
+	
+	public static boolean checkOutOfBounds(char[][] grid, char pent, char[][][][] pentSet, int variant, int x, int y) {
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		
+		int heightGrid = grid.length;
+		int widthGrid = grid[0].length;
+		int heightPent = pentSet[hmap.get(pent)][variant].length;
+		int widthPent = pentSet[hmap.get(pent)][variant][0].length;
+		
+		if(heightGrid-x < heightPent){
+			return false;
+		}
+		if(widthGrid-y < widthPent){
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean checkOverlap(char[][] grid, char pent, char[][][][] pentSet, int variant, int x, int y) {
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		
+		int pentIndex = hmap.get(pent); //this is the pentomino used
+		
+		for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
+			for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
+				if ((grid[x+i][y+j] != '0') && (pentSet[pentIndex][variant][i][j] != '0')){
+					return false;
+				}					
+			}
+		}
+		
+		
+		/*if(grid[x][y]=='0') {
+			for (int i=0; i<pentSet[p][variant].length; i++) {
+				for(int j=0; j<pentSet[p][variant][i].length; j++) {
+					if((pentSet[p][variant][i][j]==pent) && (grid[x+i][y+j]!='0')) {
+						return false;
+						}
+					}
+				}
+			} 
+		else {
+			return false;
+		}*/
+		return true;
+	}
 }
