@@ -51,6 +51,11 @@ public class Project1{
 
 		int area = lengthGrid * widthGrid;
 		char[][] grid = new char[lengthGrid][widthGrid];
+		for (int i = 0; i < grid.length; i++){
+			for (int j = 0; j < grid[0].length; j++){
+				grid[i][j] = '0';
+			}
+		}
 		
 		if(area%5 != 0){
 			throw new IllegalArgumentException("Not possible.");
@@ -88,29 +93,34 @@ public class Project1{
 		int pentIndex = hmap.get(pentsUsed[progress]);
 		char pent = pentsUsed[progress];
 		
+		System.out.println(grid.length + " " + grid[0].length);
+		
 		for (int x = 0; x < grid.length; x++){
 			for (int y = 0; y < grid[0].length; y++){
 				for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
-					if (checkOutOfBounds(grid, pent, pentSet, variant, x, y)){
-						if(checkOverlap(grid, pent, pentSet, variant, x, y)){
+					System.out.println("oub is " + checkOutOfBounds(grid, pent, pentSet, variant, x, y ) + " for x y " + x + " " + y + " for pent " + pent + "" + variant);
+					if (checkOutOfBounds(grid, pent, pentSet, variant, x, y) == true){
+						System.out.println("overlap is" + checkOverlap(grid, pent, pentSet, variant, x, y ));
+						if(checkOverlap(grid, pent, pentSet, variant, x, y ) == true){
 							for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
 								for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
 									if (pentSet[pentIndex][variant][i][j] != 0){
 										grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
-										if (variant < pentSet[pentIndex][variant].length){
-											if (progress<pentsUsed.length) {
-												placePentomino(grid, pentSet, pentsUsed, progress+1);
-											} else{
-												for (int k = 0; k < grid.length; k++){
-													for (int l = 0; k < grid[0].length; k++){
-														System.out.print(grid[i][j]);
-													}
-													System.out.println("");
-												}
-											}
-										}
-										removePentomino(grid, pent);
 									}
+								}
+							}
+							System.out.println("variant and number of variables" + variant + " " + pentSet[pentIndex].length);
+							if (variant < pentSet[pentIndex].length - 1){
+								System.out.println("progress and  number of pents used " + progress + " " + pentsUsed.length);
+								if (progress < pentsUsed.length - 1) {
+									placePentomino(grid, pentSet, pentsUsed, progress+1);
+									removePentomino(grid, pent);
+								} 
+								for (int k = 0; k < grid.length; k++){
+									for (int l = 0; k < grid[0].length; k++){
+										System.out.print(grid[k][l]);
+									}
+									System.out.println("");
 								}
 							}
 						}
@@ -177,12 +187,15 @@ public class Project1{
 		int heightPent = pentSet[hmap.get(pent)][variant].length;
 		int widthPent = pentSet[hmap.get(pent)][variant][0].length;
 		
-		if(heightGrid-x < heightPent){
+		
+		/*System.out.println("the pent is " + pent + "" + variant + " pentheight is " + heightPent + " pentwidth is " + widthPent);
+		System.out.println("x is " + x + " gridheight is " + heightGrid + " y is " + y + " gridwidth is " + widthGrid);*/
+		
+		
+		if ((x + heightPent > heightGrid) || (y + widthPent > widthGrid)){
 			return false;
 		}
-		if(widthGrid-y < widthPent){
-			return false;
-		}
+		
 		return true;
 	}
 	
@@ -204,26 +217,13 @@ public class Project1{
 		int pentIndex = hmap.get(pent); //this is the pentomino used
 		
 		for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
-			for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
+			for(int j = 0; j < pentSet[pentIndex][variant][0].length; j++){
+				System.out.println(grid[x+i][y+j] + " " + pentSet[pentIndex][variant][i][j]);
 				if ((grid[x+i][y+j] != '0') && (pentSet[pentIndex][variant][i][j] != '0')){
 					return false;
 				}					
 			}
 		}
-		
-		
-		/*if(grid[x][y]=='0') {
-			for (int i=0; i<pentSet[p][variant].length; i++) {
-				for(int j=0; j<pentSet[p][variant][i].length; j++) {
-					if((pentSet[p][variant][i][j]==pent) && (grid[x+i][y+j]!='0')) {
-						return false;
-						}
-					}
-				}
-			} 
-		else {
-			return false;
-		}*/
 		return true;
 	}
 }
