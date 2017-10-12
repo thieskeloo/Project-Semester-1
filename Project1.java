@@ -66,16 +66,22 @@ public class project1{
 
 	}
 	
-	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
-
-		if(emptyBoxes%5 != 0){
-			//one step back
+	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed, int progress){
+		char pent = pentsUsed[progress];
+		int pentIndex = hmap.get(pent);
+		for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
+			if (checkOutOfBounds(grid, pent, variant, x, y) || checkOverlap(grid, pent, variant, x, y)){
+				for (int i = 0; i < pentSet[pentIndex][variant].length; j++){
+					for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
+						if (pentSet[pentIndex][variant][i][j] != 0){
+							grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
+							placePentomino(grid, pentSet, pentsUsed, progress+1);
+							removePentomino(grid, pent);
+						}
+					}
+				}
+			}
 		}
-		else{
-			//place pentomino
-		}
-		
-		
 	}
 	
 	public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
