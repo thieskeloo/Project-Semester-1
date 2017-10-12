@@ -44,15 +44,16 @@ public class project1{
 		hmap.put('n', 10);
 		hmap.put('l', 11);
 
-		Scanner input = new Scanner(System.in);
-		System.out.println("Type the length of the grid.");
-		int lengthGrid = input.nextInt();
-		System.out.println("Type the width of the grid.");
-		int widthGrid = input.nextInt();
-
-		int area = lengthGrid * widthGrid;
-		char[][] grid = new char[lengthGrid][widthGrid];
-
+		if(area%5 != 0){
+			System.out.println("Not possible.");
+		}
+		else if(area > 60){
+			System.out.println("Definetely not possible!");
+		}
+		else if(area==5){ 
+			System.out.println("True."); //show??
+		}
+		
 		System.out.println("Which pentatoniminos should be used?");
 		int numberOfPents = area / 5;
 		int[] pentsUsed = new int[numberOfPents];
@@ -60,24 +61,51 @@ public class project1{
 			char tmpChar = input.next().charAt(0);
 			pentsUsed[i] = hmap.get(tmpChar);
 		}
-
-
-		if(area%5 != 0){
-			System.out.println("Not possible.");
-		}
-		else if(area > 60){
-			System.out.println("Definetely not possible!");
-		}
-		else if(area==5){
-			System.out.println("True.");
-		}
+		
+		
 
 	}
-
-	/*public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
-
-	}*/
-
+	
+	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
+		
+		
+		
+		if(emptyBoxes%5 != 0){
+			//one step back
+		}
+		else{
+			//place pentomino
+		}
+		
+		
+	}
+	
+	public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
+		int height = grid.length;
+		int width = grid[0].length;
+		
+		int emptyBoxes=0;
+		for(int i=0; i<height; i++){
+			for(int j=0; j<width; j++){
+				if(grid[i][j]=='0'){
+					grid[i][j]='1';
+					emptyBoxes++;
+					if(i != 0){
+						emptyBlocks(grid[i-1][j], pentSet, pentsUsed);
+					}
+					if(i != height)
+					emptyBlocks(grid[i+1][j], pentSet, pentsUsed);
+					if(j != 0){
+						emptyBlocks(grid[i][j-1], pentSet, pentsUsed);
+					}
+					if(j != width){
+						emptyBlocks(grid[i][j+1], pentSet, pentsUsed);
+					}
+				}
+			}
+		}
+		return emptyBoxes;
+	}
 	public static void removePentomino(char[][] grid, char pent) {
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
