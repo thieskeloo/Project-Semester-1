@@ -93,8 +93,6 @@ public class Project1{
 		int pentIndex = hmap.get(pentsUsed[progress]);
 		char pent = pentsUsed[progress];
 		
-		System.out.println(grid.length + " " + grid[0].length);
-		
 		for (int x = 0; x < grid.length; x++){
 			for (int y = 0; y < grid[0].length; y++){
 				for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
@@ -109,19 +107,19 @@ public class Project1{
 									}
 								}
 							}
-							System.out.println("variant and number of variables" + variant + " " + pentSet[pentIndex].length);
+							System.out.println("variant and number of variants" + variant + " " + pentSet[pentIndex].length);
 							if (variant < pentSet[pentIndex].length - 1){
 								System.out.println("progress and  number of pents used " + progress + " " + pentsUsed.length);
 								if (progress < pentsUsed.length - 1) {
 									placePentomino(grid, pentSet, pentsUsed, progress+1);
 									removePentomino(grid, pent);
-								} 
-								for (int k = 0; k < grid.length; k++){
-									for (int l = 0; k < grid[0].length; k++){
+									} 
+								/*for (int k = 0; k < grid.length-1; k++){
+									for (int l = 0; k < grid[0].length-1; k++){
 										System.out.print(grid[k][l]);
 									}
 									System.out.println("");
-								}
+								}*/
 							}
 						}
 					}
@@ -218,7 +216,9 @@ public class Project1{
 		
 		for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
 			for(int j = 0; j < pentSet[pentIndex][variant][0].length; j++){
-				System.out.println(grid[x+i][y+j] + " " + pentSet[pentIndex][variant][i][j]);
+				
+				/*System.out.println(grid[x+i][y+j] + " " + pentSet[pentIndex][variant][i][j]);*/
+				
 				if ((grid[x+i][y+j] != '0') && (pentSet[pentIndex][variant][i][j] != '0')){
 					return false;
 				}					
