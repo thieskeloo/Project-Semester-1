@@ -53,14 +53,6 @@ public class project1{
 		int area = lengthGrid * widthGrid;
 		char[][] grid = new char[lengthGrid][widthGrid];
 		
-		System.out.println("Which pentatoniminos should be used?");
-		int numberOfPents = area / 5;
-		int[] pentsUsed = new int[numberOfPents];
-		for (int i = 0; i < numberOfPents; i++){
-			char tmpChar = input.next().charAt(0);
-			pentsUsed[i] = hmap.get(tmpChar);
-		}
-		
 		/*
 		if(area%5 != 0){
 			System.out.println("Not possible.");
@@ -72,6 +64,15 @@ public class project1{
 			System.out.println("True."); //show??
 		}
 		*/
+		
+		System.out.println("Which pentatoniminos should be used?");
+		int numberOfPents = area / 5;
+		int[] pentsUsed = new int[numberOfPents];
+		for (int i = 0; i < numberOfPents; i++){
+			char tmpChar = input.next().charAt(0);
+			pentsUsed[i] = hmap.get(tmpChar);
+		}
+				
 	}
 	
 	/*public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
