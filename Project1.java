@@ -2,10 +2,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class project1{
+public class Project1{
 	public static void main(String[] args){
 		char[][][] pentP = {{{'p','p'},{'p','p'},{'p','0'}},{{'p','p'},{'p','p'},{'p','0'}},{{'p','0'},{'p','p'},{'p','p'}},{{'0','p'},{'p','p'},{'p','p'}},{{'p','p','p'},{'p','p','0'}},{{'p','p','p'},{'0','p','p'}},{{'p','p','0'},{'p','p','p'}},{{'0','p','p'},{'p','p','p'}}};
-
+		
 		char[][][] pentX = {{{'0','x','0'},{'x','x','x'},{'0','x','0'}}};
 
 		char[][][] pentF = {{{'0','f','0'},{'f','f','f'},{'0','0','f'}},{{'0','f','f'},{'f','f','0'},{'0','f','0'}},{{'f','0','0'},{'f','f','f'},{'0','f','0'}},{{'0','f','0'},{'0','f','f'},{'f','f','0'}},{{'0','0','f'},{'f','f','f'},{'0','f','0'}},{{'f','f','0'},{'0','f','f'},{'0','f','0'}},{{'0','f','0'},{'f','f','f'},{'f','0','0'}},{{'0','f','0'},{'f','f','0'},{'0','f','f'}}};
@@ -29,8 +29,9 @@ public class project1{
 		char[][][] pentL = {{{'l','0','0','0',},{'l','l','l','l'}},{{'0','l'},{'0','l'},{'0','l'},{'l','l'}},{{'l','l','l','l'},{'0','0','0','l'}},{{'l','l'},{'l','0'},{'l','0'},{'l','0'}},{{'l','l'},{'0','l'},{'0','l'},{'0','l'}},{{'l','l','l','l'},{'l','0','0','0'}},{{'l','0'},{'l','0'},{'l','0'},{'l','l'}},{{'0','0','0','l'},{'l','l','l','l'}}};
 
 		char[][][][] pentSet = {pentP, pentX, pentF, pentV, pentW, pentY, pentI, pentT, pentZ, pentU, pentN, pentL};
-
+		
 		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		System.out.println("Type the name of the pentominoes you want to use."); //ordered in this way
 		hmap.put('p', 0);
 		hmap.put('x', 1);
 		hmap.put('f', 2);
@@ -43,7 +44,16 @@ public class project1{
 		hmap.put('u', 9);
 		hmap.put('n', 10);
 		hmap.put('l', 11);
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Type the length of the grid.");
+		int lengthGrid = input.nextInt();
+		System.out.println("Type the width of the grid.");
+		int widthGrid = input.nextInt();
 
+		int area = lengthGrid * widthGrid;
+		char[][] grid = new char[lengthGrid][widthGrid];
+		
 		if(area%5 != 0){
 			System.out.println("Not possible.");
 		}
@@ -66,16 +76,29 @@ public class project1{
 
 	}
 	
-	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed, int progress){
-		char pent = pentsUsed[progress];
-		int pentIndex = hmap.get(pent);
+	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed, int progress, int x, int y){
+		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
+		hmap.put('p', 0);
+		hmap.put('x', 1);
+		hmap.put('f', 2);
+		hmap.put('v', 3);
+		hmap.put('w', 4);
+		hmap.put('y', 5);
+		hmap.put('i', 6);
+		hmap.put('t', 7);
+		hmap.put('z', 8);
+		hmap.put('u', 9);
+		hmap.put('n', 10);
+		hmap.put('l', 11);
+		int pentIndex = hmap.get(pentsUsed[progress]);
+		
 		for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
-			if (checkOutOfBounds(grid, pent, variant, x, y) || checkOverlap(grid, pent, variant, x, y)){
+			if (checkOutOfBounds(grid, pentsUsed[progress], variant, x, y) || checkOverlap(grid, pent, variant, x, y)){
 				for (int i = 0; i < pentSet[pentIndex][variant].length; j++){
 					for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
 						if (pentSet[pentIndex][variant][i][j] != 0){
 							grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
-							placePentomino(grid, pentSet, pentsUsed, progress+1);
+							placePentomino(grid, pentSet, pentsUsed, progress+1, x, y);
 							removePentomino(grid, pent);
 						}
 					}
@@ -121,11 +144,11 @@ public class project1{
 		}
 	}
 	
-	public static boolean outOfBound(char[][] grid, char pent) {
+	public static boolean outOfBound(char[][] grid, char pent, int x, int y) {
 		int heightGrid = grid.length;
 		int widthGrid = grid[0].length;
-		int heigthPent = pent.length;
-		int widthPent = pent[0], length;
+		int heigthPent = hmap.get(pent).length;
+		int widthPent = hmap.get(pent)[0].length;
 		
 		for(int i=0; i<heightGrid; i++){
 			for(int j=0; j<widthGrid; j++){
@@ -137,7 +160,9 @@ public class project1{
 				}	
 			}
 		}
+		
 	}
+	
 	public static boolean checkOverlap(char[][] grid, char pent, int variant, int x, int y) {
 		int p = hmap.get(pent); //this is the pentomino used
 		if(grid[x][y]=='0') {
@@ -148,7 +173,8 @@ public class project1{
 						}
 					}
 				}
-			} else {
+			} 
+		else {
 			return false;
 		}
 		return true;
