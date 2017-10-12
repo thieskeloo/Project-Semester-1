@@ -138,4 +138,19 @@ public class project1{
 			}
 		}
 	}
+	public static boolean checkOverlap(char[][] grid, char pent, int variant, int x, int y) {
+		int p = hmap.get(pent); //this is the pentomino used
+		if(grid[x][y]=='0') {
+			for (int i=0; i<pentSet[p][variant].length; i++) {
+				for(int j=0; j<pentSet[p][variant][i].length; j++) {
+					if(pentSet[p][variant][i][j]=pent && grid[x+i][y+j]!='0') {
+						return false;
+						}
+					}
+				}
+			} else {
+			return false;
+		}
+		return true;
+	}
 }
