@@ -43,7 +43,16 @@ public class project1{
 		hmap.put('u', 9);
 		hmap.put('n', 10);
 		hmap.put('l', 11);
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Type the length of the grid.");
+		int lengthGrid = input.nextInt();
+		System.out.println("Type the width of the grid.");
+		int widthGrid = input.nextInt();
 
+		int area = lengthGrid * widthGrid;
+		char[][] grid = new char[lengthGrid][widthGrid];
+		
 		if(area%5 != 0){
 			System.out.println("Not possible.");
 		}
