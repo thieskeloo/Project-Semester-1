@@ -67,9 +67,7 @@ public class project1{
 	}
 	
 	public static void placePentomino(char[][] grid, char[][][][] pentSet, int[] pentsUsed){
-		
-		
-		
+
 		if(emptyBoxes%5 != 0){
 			//one step back
 		}
@@ -106,12 +104,31 @@ public class project1{
 		}
 		return emptyBoxes;
 	}
+	
 	public static void removePentomino(char[][] grid, char pent) {
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				if (grid[i][j]==pent) {
 					grid[i][j]='0';
 				}
+			}
+		}
+	}
+	
+	public static boolean outOfBound(char[][] grid, char pent) {
+		int heightGrid = grid.length;
+		int widthGrid = grid[0].length;
+		int heigthPent = pent.length;
+		int widthPent = pent[0], length;
+		
+		for(int i=0; i<heightGrid; i++){
+			for(int j=0; j<widthGrid; j++){
+				if(heigthGrid-i < heigthPent){
+					return false;
+				}
+				if(widthGrid-j < widthPent){
+					return false;
+				}	
 			}
 		}
 	}
