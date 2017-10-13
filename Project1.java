@@ -96,31 +96,27 @@ public class Project1{
 		for (int x = 0; x < grid.length; x++){
 			for (int y = 0; y < grid[0].length; y++){
 				for (int variant = 0; variant < pentSet[pentIndex].length; variant++){
-					System.out.println("oub is " + checkOutOfBounds(grid, pent, pentSet, variant, x, y ) + " for x y " + x + " " + y + " for pent " + pent + "" + variant);
+					System.out.println("x=" + x + " y=" + y + " " + pent + "" + variant);
+					//System.out.println("oub is " + checkOutOfBounds(grid, pent, pentSet, variant, x, y ) + " for x y " + x + " " + y + " for pent " + pent + "" + variant);
 					if (checkOutOfBounds(grid, pent, pentSet, variant, x, y) == true){
-						System.out.println("overlap is" + checkOverlap(grid, pent, pentSet, variant, x, y ));
+						//System.out.println("overlap is" + checkOverlap(grid, pent, pentSet, variant, x, y ));
 						if(checkOverlap(grid, pent, pentSet, variant, x, y ) == true){
 							for (int i = 0; i < pentSet[pentIndex][variant].length; i++){
-								for(int j = y; j < pentSet[pentIndex][variant][0].length; j++){
-									if (pentSet[pentIndex][variant][i][j] != 0){
+								for(int j = 0; j < pentSet[pentIndex][variant][0].length; j++){
+									if (pentSet[pentIndex][variant][i][j] != '0'){
 										grid[x+i][y+j] = pentSet[pentIndex][variant][i][j];
 									}
 								}
 							}
-							System.out.println("variant and number of variants" + variant + " " + pentSet[pentIndex].length);
+							printBoard(grid);
+							//System.out.println("variant and number of variants" + variant + " " + pentSet[pentIndex].length);
 							if (variant < pentSet[pentIndex].length - 1){
 								System.out.println("progress and  number of pents used " + progress + " " + pentsUsed.length);
 								if (progress < pentsUsed.length - 1) {
-									placePentomino(grid, pentSet, pentsUsed, progress+1);
-									removePentomino(grid, pent);
-									} 
-								/*for (int k = 0; k < grid.length-1; k++){
-									for (int l = 0; k < grid[0].length-1; k++){
-										System.out.print(grid[k][l]);
-									}
-									System.out.println("");
-								}*/
+							 		placePentomino(grid, pentSet, pentsUsed, progress+1);
+								}
 							}
+							removePentomino(grid, pent);
 						}
 					}
 				}
@@ -128,7 +124,7 @@ public class Project1{
 		}
 	}
 	
-	/*public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
+	public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
 		int height = grid.length;
 		int width = grid[0].length;
 		
@@ -153,7 +149,17 @@ public class Project1{
 			}
 		}
 		return emptyBoxes;
-	}*/
+	}
+	
+	public static void printBoard(char[][] grid){
+		for (int k = 0; k < grid.length; k++){
+			for (int l = 0; l < grid[0].length; l++){
+				System.out.print(grid[k][l]);
+			}
+			System.out.println("");
+		}
+		System.out.println("");
+	}
 	
 	public static void removePentomino(char[][] grid, char pent) {
 		for (int i=0; i<grid.length; i++) {
