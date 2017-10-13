@@ -58,10 +58,10 @@ public class Project1{
 		}
 		
 		if(area%5 != 0){
-			throw new IllegalArgumentException("Not possible.");
+			throw new IllegalArgumentException("That's never gonna fit.");
 		}
 		else if(area > 60){
-			throw new IllegalArgumentException("YOU STUPID IDIOT!");
+			throw new IllegalArgumentException("That's too big!");
 		}
 		
 		System.out.println("Which pentatoniminos should be used?");
@@ -110,7 +110,9 @@ public class Project1{
 							}
 							printBoard(grid);
 							//System.out.println("variant and number of variants" + variant + " " + pentSet[pentIndex].length);
-							placePentomino(grid, pentSet, pentsUsed, progress+1);
+							if (isolatedblocks(grid, pentSet, variant, progress, x, y)){
+								placePentomino(grid, pentSet, pentsUsed, progress+1);
+							}
 							removePentomino(grid, pent);
 						}
 					}
@@ -119,32 +121,54 @@ public class Project1{
 		}
 	}
 	
-	/*public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
-		int height = grid.length;
-		int width = grid[0].length;	
+	public static boolean isolatedblocks(char[][] grid, char[][][][] pentSet, int variant, int progress, int x, int y){
+		for (int i = x; i < x + pentSet[progress][variant].length-1; i++){
+			for (int j = y; j < y + pentSet[progress][variant][0].length-1; j++){
+				if (grid[i][j] == '0'){
+					emptyBlocks(grid, i, j);
+				}
+			}				
+		}
 		
-		int emptyBoxes=0;
-		for(int i=0; i<height; i++){
-			for(int j=0; j<width; j++){
-				if(grid[i][j]=='0'){
-					grid[i][j]='1';
-					emptyBoxes++;
-					if(i != 0){
-						emptyBlocks(grid[i-1][j], pentSet, pentsUsed);
-					}
-					if(i != height)
-					emptyBlocks(grid[i+1][j], pentSet, pentsUsed);
-					if(j != 0){
-						emptyBlocks(grid[i][j-1], pentSet, pentsUsed);
-					}
-					if(j != width){
-						emptyBlocks(grid[i][j+1], pentSet, pentsUsed);
-					}
+		int connectedBlocks = 0;
+		
+		for (int k = 0; k < grid.length; k++){
+			for (int l = 0; l < grid[0].length; l++){
+				if (grid[k][l] == '1'){
+					connectedBlocks++;
 				}
 			}
 		}
-		return emptyBoxes;
-	}*/
+		
+		removePentomino(grid, '1');
+		
+		if (connectedBlocks % 5 != 0){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static void emptyBlocks(char[][] grid, int x, int y){ //false if it not dividable by 5, set emptyBoxes == 0, set x==0, set y==0 in the beginning
+		int height = grid.length;
+		int width = grid[0].length;
+
+		if (grid[x][y]=='0') {
+			grid[x][y]='1';
+			if (x+1 < height) {
+				emptyBlocks(grid, x+1, y);
+			}
+			if (x-1 > 0) {
+				emptyBlocks(grid, x-1, y);
+			}
+			if (y-1 > 0) {
+				emptyBlocks(grid, x, y-1);
+			}
+			if (y+1 < width) {
+				emptyBlocks(grid, x, y+1);
+			}
+		}
+	}
 	
 	public static void printBoard(char[][] grid){
 		for (int k = 0; k < grid.length; k++){
