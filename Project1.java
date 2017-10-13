@@ -110,12 +110,7 @@ public class Project1{
 							}
 							printBoard(grid);
 							//System.out.println("variant and number of variants" + variant + " " + pentSet[pentIndex].length);
-							if (variant < pentSet[pentIndex].length - 1){
-								System.out.println("progress and  number of pents used " + progress + " " + pentsUsed.length);
-								if (progress < pentsUsed.length - 1) {
-							 		placePentomino(grid, pentSet, pentsUsed, progress+1);
-								}
-							}
+							placePentomino(grid, pentSet, pentsUsed, progress+1);
 							removePentomino(grid, pent);
 						}
 					}
@@ -124,9 +119,9 @@ public class Project1{
 		}
 	}
 	
-	public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
+	/*public static int emptyBlocks(char[][] grid, char[][][][] pentSet, char[] pentsUsed){ //recursion
 		int height = grid.length;
-		int width = grid[0].length;
+		int width = grid[0].length;	
 		
 		int emptyBoxes=0;
 		for(int i=0; i<height; i++){
@@ -149,7 +144,7 @@ public class Project1{
 			}
 		}
 		return emptyBoxes;
-	}
+	}*/
 	
 	public static void printBoard(char[][] grid){
 		for (int k = 0; k < grid.length; k++){
