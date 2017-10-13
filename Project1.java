@@ -187,7 +187,7 @@ public class Project1{
 				emptyBlocks(grid, x, y+1);
 			}
 		}
-	}*/
+	}
 	
 	/* prints out the actual grid
 	*/
